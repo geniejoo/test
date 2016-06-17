@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE 
+	mapper 
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.study.springrest.mappers.replyMapper">
+	
+	<insert id="insert">
+		insert into reply(content, user_name,  board_no)
+		values(#{content}, #{user_name}, #{board_no})
+	</insert>
+	
+	<select id="get" resultType="com.study.springrest.domain.ReplyVO">
+		select * from reply where reply_no = #{reply_no}
+	</select>
+
+	<select id="getList" resultType="com.study.springrest.domain.ReplyVO">
+		select * from reply where board_no = #{board_no}
+	</select>
+	
+	<select id="getTotalCount" resultType="int">
+		select count(*) from reply where board_no = #{board_no}
+	</select>
+		
+	<select id="getListPage" resultType="com.study.springrest.domain.ReplyVO">
+		select * from reply where board_no= #{bno}
+		order by reply_no asc 
+		limit #{cri.startPage}, #{cri.articlePerPage}			<!--limit 시작값, 갯수 를 지정할 수 있음  -->
+																				<!-- cri.+get+startPage을 자동으로 getStartPage로 변환하여 호출 함-->
+	</select>
+	
+	<delete id="delete">
+		delete from reply where reply_no = #{reply_no}
+	</delete>
+
+</mapper>
